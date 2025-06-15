@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C/C++const与static关键字</title>
+    <url>/2023/11/14/C-C-const%E4%B8%8Estatic%E5%85%B3%E9%94%AE%E5%AD%97/</url>
+    <content><![CDATA[<p>这一节主要给大家介绍C语言中经常令人迷惑的两个关键字const和static，考虑到大家的基础，我只在课堂上讲授最初级的内容，但是初级不等于不重要，也决不等于简单，相反，学好初级的内容在编程当中具有十分重要的意义，是各位今后理解更高级别代码的基石，希望大家对下面的内容做到精准掌握！后续，我会根据情况逐渐对这篇博客进行完善，补充一些更高级的用法和更深层次的知识，下面，让我们从内存开始——</p>
+<span id="more"></span>
+
+<h2 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows是闭源的，有版权保护，资料较少，不好深入研究每一个细节，至今仍有一些内部原理不被大家知晓。下图是一个典型的 Windows 32位程序的内存分布：<br><img src="/images/32.jpg" alt="Windows内存分布"></p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="是这样吗？"><a href="#是这样吗？" class="headerlink" title="是这样吗？"></a>是这样吗？</h3><p>Me：<br>但是在我int &amp;a &#x3D; f（int b）的例子中，f函数返回的也是一个临时的整数值啊，为什么绑定到临时的整形上就不会错，绑定到临时的pair上就会错呢？<br>ChatGPT：<br>好问题！这涉及到 C++ 中的两种不同的语法和行为。</p>
+<p>在 C++ 中，绑定到临时值的非 const 引用是允许的，但有一个重要的区别：</p>
+<p>对于基本数据类型（如整数），非 const 引用可以绑定到临时值，因为整数是可修改的。</p>
+<p>对于复杂的用户定义类型（如 pair&lt;int, int&gt;），非 const 引用不能直接绑定到临时值。这是因为，与整数不同，pair&lt;int, int&gt; 是一个复杂的对象，C++ 规定不能通过非 const 引用修改临时对象，以防止悬垂引用问题。</p>
+<p>这就是为什么在你的原始代码中，当你尝试用非 const 引用绑定到 pair&lt;int, int&gt; 类型的临时值时，编译器报错的原因。而在 int &amp;a &#x3D; f(int b) 这种情况下，int 是一个基本数据类型，可以通过非 const 引用绑定到临时值。</p>
+<h2 id="如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"><a href="#如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。" class="headerlink" title="如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"></a>如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cpp</span><br><span class="line">const auto &amp;[l1, r1] = f(s, i, i);</span><br><span class="line">const auto &amp;[l2, r2] = f(s, i, i + 1);</span><br></pre></td></tr></table></figure><br>这样就能够避免编译错误。希望这能帮助解释这个问题。</h2><p>这是真的吗？？？</p>
+]]></content>
+      <categories>
+        <category>2023-11</category>
+      </categories>
+      <tags>
+        <tag>语法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++的进阶语法</title>
     <url>/2023/11/06/C++%E7%9A%84%E8%BF%9B%E9%98%B6%E8%AF%AD%E6%B3%95(%E4%BB%85%E8%AF%AD%E6%B3%95%E5%B1%82%E9%9D%A2)/</url>
     <content><![CDATA[<p>最近复习一下语法，结合了以下三本工具书，记录一下有收获的点：</p>
@@ -19,27 +40,6 @@
 <h3 id="转换构造函数"><a href="#转换构造函数" class="headerlink" title="转换构造函数"></a>转换构造函数</h3><p>内容略</p>
 <h2 id="模板-Template"><a href="#模板-Template" class="headerlink" title="模板(Template)"></a>模板(Template)</h2><h3 id="模板实参推断过程中的类型转换"><a href="#模板实参推断过程中的类型转换" class="headerlink" title="模板实参推断过程中的类型转换"></a>模板实参推断过程中的类型转换</h3><p>这也是指针和引用的重大区别之一！！！就是在函数模板实参推断过程中是否允许类型转换！！！</p>
 <h3 id="模板的显式具体化"><a href="#模板的显式具体化" class="headerlink" title="模板的显式具体化"></a>模板的显式具体化</h3>]]></content>
-      <categories>
-        <category>2023-11</category>
-      </categories>
-      <tags>
-        <tag>语法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C/C++const与static关键字</title>
-    <url>/2023/11/14/C-C-const%E4%B8%8Estatic%E5%85%B3%E9%94%AE%E5%AD%97/</url>
-    <content><![CDATA[<p>这一节主要给大家介绍C语言中经常令人迷惑的两个关键字const和static，考虑到大家的基础，我只在课堂上讲授最初级的内容，但是初级不等于不重要，也决不等于简单，相反，学好初级的内容在编程当中具有十分重要的意义，是各位今后理解更高级别代码的基石，希望大家对下面的内容做到精准掌握！后续，我会根据情况逐渐对这篇博客进行完善，补充一些更高级的用法和更深层次的知识，下面，让我们从内存开始——</p>
-<span id="more"></span>
-
-<h2 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows是闭源的，有版权保护，资料较少，不好深入研究每一个细节，至今仍有一些内部原理不被大家知晓。下图是一个典型的 Windows 32位程序的内存分布：<br><img src="/images/32.jpg" alt="Windows内存分布"></p>
-<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="是这样吗？"><a href="#是这样吗？" class="headerlink" title="是这样吗？"></a>是这样吗？</h3><p>Me：<br>但是在我int &amp;a &#x3D; f（int b）的例子中，f函数返回的也是一个临时的整数值啊，为什么绑定到临时的整形上就不会错，绑定到临时的pair上就会错呢？<br>ChatGPT：<br>好问题！这涉及到 C++ 中的两种不同的语法和行为。</p>
-<p>在 C++ 中，绑定到临时值的非 const 引用是允许的，但有一个重要的区别：</p>
-<p>对于基本数据类型（如整数），非 const 引用可以绑定到临时值，因为整数是可修改的。</p>
-<p>对于复杂的用户定义类型（如 pair&lt;int, int&gt;），非 const 引用不能直接绑定到临时值。这是因为，与整数不同，pair&lt;int, int&gt; 是一个复杂的对象，C++ 规定不能通过非 const 引用修改临时对象，以防止悬垂引用问题。</p>
-<p>这就是为什么在你的原始代码中，当你尝试用非 const 引用绑定到 pair&lt;int, int&gt; 类型的临时值时，编译器报错的原因。而在 int &amp;a &#x3D; f(int b) 这种情况下，int 是一个基本数据类型，可以通过非 const 引用绑定到临时值。</p>
-<h2 id="如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"><a href="#如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。" class="headerlink" title="如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"></a>如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cpp</span><br><span class="line">const auto &amp;[l1, r1] = f(s, i, i);</span><br><span class="line">const auto &amp;[l2, r2] = f(s, i, i + 1);</span><br></pre></td></tr></table></figure><br>这样就能够避免编译错误。希望这能帮助解释这个问题。</h2><p>这是真的吗？？？</p>
-]]></content>
       <categories>
         <category>2023-11</category>
       </categories>
@@ -134,6 +134,19 @@
       </categories>
       <tags>
         <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>重回有感</title>
+    <url>/2025/06/16/%E9%87%8D%E5%9B%9E%E6%9C%89%E6%84%9F/</url>
+    <content><![CDATA[<p>一晃已经一年半了，昨天重新来访旧站，感触良多，看着破败不堪的小站，看着那些笨拙的特效，刺眼的bug，七扭八歪的文字，一时哭笑不得。但我确信这是我蹒跚学步时的来时路，我不忍那些青葱岁月就这样消逝在苍茫的互联网大海中，于是我花了一小时认真地修改了那些当时令我头疼的所有bug，并写下了这篇重回有感，的确，现在共享云文档的发展几乎淹没了博客作为主流技术传播渠道而存在的空间，但我想这些千篇一律的高效框架却永远也无法抹煞博客作为个人性格展现而存在的价值，所以，我回来了！当年那些曾经关注这个网站的朋友们，别来无恙！</p>
+<p>今后这个博客可能不会主要去更新技术和科研了，更多的是一些杂文和反思，希望我们仍然能够有缘千里来相逢！</p>
+]]></content>
+      <categories>
+        <category>2025-6</category>
+      </categories>
+      <tags>
+        <tag>杂文</tag>
       </tags>
   </entry>
 </search>
