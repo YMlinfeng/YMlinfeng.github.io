@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C/C++const与static关键字</title>
-    <url>/2023/11/14/C-C-const%E4%B8%8Estatic%E5%85%B3%E9%94%AE%E5%AD%97/</url>
-    <content><![CDATA[<p>这一节主要给大家介绍C语言中经常令人迷惑的两个关键字const和static，考虑到大家的基础，我只在课堂上讲授最初级的内容，但是初级不等于不重要，也决不等于简单，相反，学好初级的内容在编程当中具有十分重要的意义，是各位今后理解更高级别代码的基石，希望大家对下面的内容做到精准掌握！后续，我会根据情况逐渐对这篇博客进行完善，补充一些更高级的用法和更深层次的知识，下面，让我们从内存开始——</p>
-<span id="more"></span>
-
-<h2 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows是闭源的，有版权保护，资料较少，不好深入研究每一个细节，至今仍有一些内部原理不被大家知晓。下图是一个典型的 Windows 32位程序的内存分布：<br><img src="/images/32.jpg" alt="Windows内存分布">(图片为什么又不能正常显示了！！！)</p>
-<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="是这样吗？"><a href="#是这样吗？" class="headerlink" title="是这样吗？"></a>是这样吗？</h3><p>Me：<br>但是在我int &amp;a &#x3D; f（int b）的例子中，f函数返回的也是一个临时的整数值啊，为什么绑定到临时的整形上就不会错，绑定到临时的pair上就会错呢？<br>ChatGPT：<br>好问题！这涉及到 C++ 中的两种不同的语法和行为。</p>
-<p>在 C++ 中，绑定到临时值的非 const 引用是允许的，但有一个重要的区别：</p>
-<p>对于基本数据类型（如整数），非 const 引用可以绑定到临时值，因为整数是可修改的。</p>
-<p>对于复杂的用户定义类型（如 pair&lt;int, int&gt;），非 const 引用不能直接绑定到临时值。这是因为，与整数不同，pair&lt;int, int&gt; 是一个复杂的对象，C++ 规定不能通过非 const 引用修改临时对象，以防止悬垂引用问题。</p>
-<p>这就是为什么在你的原始代码中，当你尝试用非 const 引用绑定到 pair&lt;int, int&gt; 类型的临时值时，编译器报错的原因。而在 int &amp;a &#x3D; f(int b) 这种情况下，int 是一个基本数据类型，可以通过非 const 引用绑定到临时值。</p>
-<h2 id="如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"><a href="#如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。" class="headerlink" title="如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"></a>如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cpp</span><br><span class="line">const auto &amp;[l1, r1] = f(s, i, i);</span><br><span class="line">const auto &amp;[l2, r2] = f(s, i, i + 1);</span><br></pre></td></tr></table></figure><br>这样就能够避免编译错误。希望这能帮助解释这个问题。</h2><p>这是真的吗？？？</p>
-]]></content>
-      <categories>
-        <category>2023-11</category>
-      </categories>
-      <tags>
-        <tag>语法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++的进阶语法</title>
     <url>/2023/11/06/C++%E7%9A%84%E8%BF%9B%E9%98%B6%E8%AF%AD%E6%B3%95(%E4%BB%85%E8%AF%AD%E6%B3%95%E5%B1%82%E9%9D%A2)/</url>
     <content><![CDATA[<p>最近复习一下语法，结合了以下三本工具书，记录一下有收获的点：</p>
@@ -48,15 +27,25 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2023/11/01/hello-world/</url>
-    <content><![CDATA[<p>兄弟们，你们的到来使我感动不已，我只能说：Welcome to 我的新家，欢迎你们常来做客！</p>
-<h1 id="Declaration"><a href="#Declaration" class="headerlink" title="Declaration"></a>Declaration</h1><p>本篇是建站以来第一篇文章，将来等文章多了他就刷到底下去了，但是一篇文章的沉底并不代表着他的消失和埋没，反而象征着这里古老的地基；有时候，网站和团队多么像啊，一篇篇文章就像团队的一个个人一样。希望将来再看到这篇文章的时候，还记得自己当时为什么出发&gt;~&lt;</p>
-<p>————yours ymlf</p>
+    <title>C/C++const与static关键字</title>
+    <url>/2023/11/14/C-C-const%E4%B8%8Estatic%E5%85%B3%E9%94%AE%E5%AD%97/</url>
+    <content><![CDATA[<p>这一节主要给大家介绍C语言中经常令人迷惑的两个关键字const和static，考虑到大家的基础，我只在课堂上讲授最初级的内容，但是初级不等于不重要，也决不等于简单，相反，学好初级的内容在编程当中具有十分重要的意义，是各位今后理解更高级别代码的基石，希望大家对下面的内容做到精准掌握！后续，我会根据情况逐渐对这篇博客进行完善，补充一些更高级的用法和更深层次的知识，下面，让我们从内存开始——</p>
+<span id="more"></span>
+
+<h2 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows是闭源的，有版权保护，资料较少，不好深入研究每一个细节，至今仍有一些内部原理不被大家知晓。下图是一个典型的 Windows 32位程序的内存分布：<br><img src="/images/32.jpg" alt="Windows内存分布">(图片为什么又不能正常显示了！！！)</p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="是这样吗？"><a href="#是这样吗？" class="headerlink" title="是这样吗？"></a>是这样吗？</h3><p>Me：<br>但是在我int &amp;a &#x3D; f（int b）的例子中，f函数返回的也是一个临时的整数值啊，为什么绑定到临时的整形上就不会错，绑定到临时的pair上就会错呢？<br>ChatGPT：<br>好问题！这涉及到 C++ 中的两种不同的语法和行为。</p>
+<p>在 C++ 中，绑定到临时值的非 const 引用是允许的，但有一个重要的区别：</p>
+<p>对于基本数据类型（如整数），非 const 引用可以绑定到临时值，因为整数是可修改的。</p>
+<p>对于复杂的用户定义类型（如 pair&lt;int, int&gt;），非 const 引用不能直接绑定到临时值。这是因为，与整数不同，pair&lt;int, int&gt; 是一个复杂的对象，C++ 规定不能通过非 const 引用修改临时对象，以防止悬垂引用问题。</p>
+<p>这就是为什么在你的原始代码中，当你尝试用非 const 引用绑定到 pair&lt;int, int&gt; 类型的临时值时，编译器报错的原因。而在 int &amp;a &#x3D; f(int b) 这种情况下，int 是一个基本数据类型，可以通过非 const 引用绑定到临时值。</p>
+<h2 id="如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"><a href="#如果你想要修改-pair-类型的临时值，可以使用-const-引用：这样就能够避免编译错误。希望这能帮助解释这个问题。" class="headerlink" title="如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：这样就能够避免编译错误。希望这能帮助解释这个问题。"></a>如果你想要修改 pair&lt;int, int&gt; 类型的临时值，可以使用 const 引用：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cpp</span><br><span class="line">const auto &amp;[l1, r1] = f(s, i, i);</span><br><span class="line">const auto &amp;[l2, r2] = f(s, i, i + 1);</span><br></pre></td></tr></table></figure><br>这样就能够避免编译错误。希望这能帮助解释这个问题。</h2><p>这是真的吗？？？</p>
 ]]></content>
       <categories>
         <category>2023-11</category>
       </categories>
+      <tags>
+        <tag>语法</tag>
+      </tags>
   </entry>
   <entry>
     <title>我和《长汀往事》</title>
@@ -69,6 +58,17 @@
       <tags>
         <tag>杂文</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2023/11/01/hello-world/</url>
+    <content><![CDATA[<p>兄弟们，你们的到来使我感动不已，我只能说：Welcome to 我的新家，欢迎你们常来做客！</p>
+<h1 id="Declaration"><a href="#Declaration" class="headerlink" title="Declaration"></a>Declaration</h1><p>本篇是建站以来第一篇文章，将来等文章多了他就刷到底下去了，但是一篇文章的沉底并不代表着他的消失和埋没，反而象征着这里古老的地基；有时候，网站和团队多么像啊，一篇篇文章就像团队的一个个人一样。希望将来再看到这篇文章的时候，还记得自己当时为什么出发&gt;~&lt;</p>
+<p>————yours ymlf</p>
+]]></content>
+      <categories>
+        <category>2023-11</category>
+      </categories>
   </entry>
   <entry>
     <title>基础代码面</title>
