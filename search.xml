@@ -32,7 +32,7 @@
     <content><![CDATA[<p>这一节主要给大家介绍C语言中经常令人迷惑的两个关键字const和static，考虑到大家的基础，我只在课堂上讲授最初级的内容，但是初级不等于不重要，也决不等于简单，相反，学好初级的内容在编程当中具有十分重要的意义，是各位今后理解更高级别代码的基石，希望大家对下面的内容做到精准掌握！后续，我会根据情况逐渐对这篇博客进行完善，补充一些更高级的用法和更深层次的知识，下面，让我们从内存开始——</p>
 <span id="more"></span>
 
-<h2 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows是闭源的，有版权保护，资料较少，不好深入研究每一个细节，至今仍有一些内部原理不被大家知晓。下图是一个典型的 Windows 32位程序的内存分布：<br><img src="/images/32.jpg" alt="Windows内存分布">(图片为什么又不能正常显示了！！！)</p>
+<h2 id="内存布局"><a href="#内存布局" class="headerlink" title="内存布局"></a>内存布局</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>Windows是闭源的，有版权保护，资料较少，不好深入研究每一个细节，至今仍有一些内部原理不被大家知晓。下图是一个典型的 Windows 32位程序的内存分布：<br><img src="/images/32.jpg" alt="Windows内存分布"></p>
 <h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="是这样吗？"><a href="#是这样吗？" class="headerlink" title="是这样吗？"></a>是这样吗？</h3><p>Me：<br>但是在我int &amp;a &#x3D; f（int b）的例子中，f函数返回的也是一个临时的整数值啊，为什么绑定到临时的整形上就不会错，绑定到临时的pair上就会错呢？<br>ChatGPT：<br>好问题！这涉及到 C++ 中的两种不同的语法和行为。</p>
 <p>在 C++ 中，绑定到临时值的非 const 引用是允许的，但有一个重要的区别：</p>
 <p>对于基本数据类型（如整数），非 const 引用可以绑定到临时值，因为整数是可修改的。</p>
